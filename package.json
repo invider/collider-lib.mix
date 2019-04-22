@@ -1,0 +1,13 @@
+{
+  "name": "collider-lib.mix",
+  "version": "0.0.1",
+  "description": "collider.jam common libraries",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "collider.mix": "git+ssh://git@hub.ikhotin.com:/var/git/collider.mix.git"
+  },
+  "author": "Igor Khotin & Co.",
+  "license": "BSD-3-Clause"
+}
