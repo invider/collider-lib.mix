@@ -184,9 +184,10 @@ return {
 	},
 
 	rnde: function rnde(obj) {
-        if (sys.isArray) {
+        if (!obj) return
+        if (Array.isArray(obj)) {
             return obj[this.rndi(obj.length)]
-        } else if (sys.isObj(obj)) {
+        } else if (typeof obj === 'object') {
             const keys = Object.keys(obj)
             return obj[keys[this.rndi(keys.length)]]
         }
