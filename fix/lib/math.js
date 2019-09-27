@@ -94,8 +94,7 @@ return {
         return a < 0? a + 2*Math.PI : a
     },
 
-    limitedAdd: function(val, q, max) {
-        return Math.min(val+q, max)
+    limitedAdd: function(val, q, max) { return Math.min(val+q, max)
     },
 
     limitedSub: function(val, q, min) {
@@ -104,22 +103,6 @@ return {
 
     limit: function(val, min, max) {
         return val < min? min : val > max? max : val
-    },
-
-    limitMin: function(val, min) {
-        return val < min? min : val
-    },
-
-    limitMax: function(val, max) {
-        return val > max? max : val
-    },
-
-    wrap: function(val, min, max) {
-        var range = max - min
-        if (range <= 0) return 0;
-        var res = (val - min) % range
-        if (res < 0) res += range;
-        return res + min
     },
 
     // linear interpolation value for v1 and v2 and t[0..1]

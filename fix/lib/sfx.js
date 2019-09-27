@@ -1,3 +1,4 @@
+// TODO take from mod scope functions?
 module.exports = function(src, vol, pan) {
     if (!pan) pan = 0
     if (!vol) vol = 1
@@ -15,4 +16,3 @@ module.exports = function(src, vol, pan) {
         src.play()
     }
 }
-
