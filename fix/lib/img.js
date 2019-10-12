@@ -36,18 +36,50 @@ module.exports = {
         if (!filename) filename = 'jam-screenshot'
         // open in a new tab
         // window.open(ctx.canvas.toDataURL('image/png'));
-        let gh = ctx.canvas.toDataURL('png');
+        let dataURL = ctx.canvas.toDataURL('image/png');
 
+        this.downloadDataURL(dataURL, filename)
+    },
+
+    screenshotArea: function(filename, x, y, w, h) {
+        if (!filename) filename = 'jam-screenshot'
+        const idata = ctx.getImageData(x, y, w, h)
+        const dataURL= this.imgToDataURL(idata)
+
+        this.downloadDataURL(dataURL, filename)
+    },
+
+    downloadDataURL: function(dataURL, name, ext) {
+        if (!name) name = 'jam-image'
+        if (!ext) ext = 'png'
         let a  = document.createElement('a');
-        a.href = gh;
-        a.download = filename + '.png';
+        a.href = dataURL;
+        a.download = name + '.' + ext
         a.click()
     },
 
+    imgToCanvas: function(img) {
+        const canvas = document.createElement('canvas')
+        const context = canvas.getContext('2d')
+        canvas.width = img.width
+        canvas.height = img.height
+
+        if (img instanceof ImageData) {
+            context.putImageData(img, 0, 0)
+        } else {
+            context.drawImage(img, 0, 0, img.width, img.height)
+        }
+        return canvas
+    },
+
+    imgToDataURL: function(img, type) {
+        if (!type) type = 'image/png'
+        return this.imgToCanvas(img).toDataURL(type)
+    },
+
     imgData: function(img) {
-      let canvas = document.createElement('canvas')
-      let context = canvas.getContext('2d')
-      context.drawImage(img, 0, 0)
-      return context.getImageData(0, 0, img.width, img.height)
+        const canvas = this.imgToCanvas(img)
+        const context = canvas.getContext('2d')
+        return context.getImageData(0, 0, img.width, img.height)
     },
 }
