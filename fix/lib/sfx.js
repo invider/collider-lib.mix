@@ -1,3 +1,4 @@
+// play sound effect with optional volume and panorama settings
 // TODO take from mod scope functions?
 module.exports = function(src, vol, pan) {
     if (!pan) pan = 0

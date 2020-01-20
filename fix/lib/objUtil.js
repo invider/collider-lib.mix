@@ -1,5 +1,7 @@
+
+// library of object math functions
+
 var objUtil = {
-    _info: 'library of object math functions',
     assertIsPositionalObj: function(obj){
         lib.asserts.assertTrue(sys.isObj(obj), "Object must be provided");
         lib.asserts.assertTrue(obj.x !== undefined, "Object must have x");

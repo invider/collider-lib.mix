@@ -1,10 +1,13 @@
 'use strict'
+
+// math library
 module.exports = (function() { 
 
 const PI = Math.PI
 const PI2 = PI*2
 
 // LCG random generator implementation
+
 var _rnd_m = 0xFFFFFFFF, _rnd_a = 1664525, _rnd_c = 1013904223;
 var _seed = 1
 
@@ -15,21 +18,22 @@ function rndv() {
 
 return {
     name: 'math',
-    _info: 'library of math functions',
 
     PI: PI,
     PI2: PI2,
 
+    // calculates the length of a vector
     length: function(x, y) {
         return Math.sqrt(x*x + y*y)
     },
 
-    // get normalized vector as array
+    // get a normalized vector as an array of [x, y]
     normalize: function(x, y) {
         var len = this.length(x, y)
         if (len === 0) return [0, 0];
         return [x/len, y/len]
     },
+
     /**
      * returns distance between 2 dots
      * @param x1
@@ -43,6 +47,7 @@ return {
         var dy = y2 - y1;
         return Math.sqrt(dx*dx + dy*dy)
     },
+
     /**
      * returns square of distance between 2 dots
      * @param x1
@@ -75,41 +80,39 @@ return {
         return this.distanceSq(px, py, x1 + t*(x2 - x1), y1 + t*(y2 - y1));
     },
 
+    // calculates a distance from a point to a segment
     distanceToSegment: function(px, py, x1, y1, x2, y2) {
         return Math.sqrt(this.distanceToSegmentSq(px, py, x1, y1, x2, y2))
     },
 
-    // angle from source to target vectors
+    // angle from the source to the target coordinates
     targetAngle: function(sx, sy, tx, ty) {
         return Math.atan2(tx - sx, ty - sy)
     },
 
+    // normalize an angle to 0..2*PI range
     normalizeAngle: function(a) {
         a = a % (2*Math.PI)
         return a < 0? a + 2*Math.PI : a
     },
 
+    // get an opposite vector normalazed in 0..2*PI range
     reverseAngle: function(a) {
         a = (a + Math.PI) % (2*Math.PI)
         return a < 0? a + 2*Math.PI : a
     },
 
-    limitedAdd: function(val, q, max) { return Math.min(val+q, max)
-    },
-
-    limitedSub: function(val, q, min) {
-        return Math.max(val-q, min)
-    },
-
+    // limit the value within provided min..max range
     limit: function(val, min, max) {
         return val < min? min : val > max? max : val
     },
 
-    // linear interpolation value for v1 and v2 and t[0..1]
+    // linear interpolation of the value between v1 .. v2 and t in [0..1]
     linear: function(v1, v2, t) {
         return (v2 - v1) * t + v1
     },
 
+    // dot product of two N2 vectors
     // useful for interception of moving objects
     dotProduct: function(x1, y1, x2, y2) {
         return x1*x2 + y1*y2
@@ -120,20 +123,22 @@ return {
         return Math.atan2(y, x)
     },
 
-    // get unit vector x from angle
+    // get unit vector x from an angle
     vecX: function(a) {
         return Math.cos(a)
     },
 
-    // get unit vector y from angle
+    // get unit vector y from an angle
     vecY: function(a) {
         return Math.sin(a)
     },
 
+    // convert degree value to radians
     degToRad: function(d) {
         return d * (Math.PI / 180)
     },
 
+    // convert radians value to degrees
     radToDeg: function(r) {
         return r * (180 / Math.PI)
     },
@@ -151,21 +156,22 @@ return {
 		return this.rndf()*PI2 - PI
 	},
 
-    // random float 0-maxValue
+    // random float in [0-maxValue)
 	rnd: function rnd(maxValue){
 		return rndv()/_rnd_m * maxValue
 	},
 
-    // random int 0-maxValue
+    // random int in [0..maxValue)
 	rndi: function rndi(maxValue){
 		return ~~this.rnd(maxValue)
 	},
 
-    // random sign 1 or -1
+    // random sign multiplicator [1/-1]
 	rnds: function rnds() {
 		return this.rndf() < .5? -1 : 1
 	},
 
+    // select random element from an object or an array
 	rnde: function rnde(obj) {
         if (!obj) return
         if (Array.isArray(obj)) {

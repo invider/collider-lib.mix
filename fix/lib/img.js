@@ -1,5 +1,8 @@
 'use strict'
 
+// image manipulation tools
+
+// construct tileset from the image
 var TileSet = function(img, sx, sy, tw, th) {
     this.img = img
     this.sx = sx
@@ -32,6 +35,7 @@ TileSet.prototype.draw = function(tilex, x, y, w, h) {
 module.exports = {
     TileSet: TileSet,
 
+    // make a screenshot and download with specified filename
     screenshot: function(filename) {
         if (!filename) filename = 'jam-screenshot'
         // open in a new tab
@@ -41,6 +45,7 @@ module.exports = {
         this.downloadDataURL(dataURL, filename)
     },
 
+    // make a screenshot of a screen area
     screenshotArea: function(filename, x, y, w, h) {
         if (!filename) filename = 'jam-screenshot'
         const idata = ctx.getImageData(x, y, w, h)
@@ -49,6 +54,7 @@ module.exports = {
         this.downloadDataURL(dataURL, filename)
     },
 
+    // download a data url by creating a hyperlink and clicking it
     downloadDataURL: function(dataURL, name, ext) {
         if (!name) name = 'jam-image'
         if (!ext) ext = 'png'
@@ -58,6 +64,7 @@ module.exports = {
         a.click()
     },
 
+    // convert image to a canvas with the same size and image content
     imgToCanvas: function(img) {
         const canvas = document.createElement('canvas')
         const context = canvas.getContext('2d')
@@ -72,11 +79,13 @@ module.exports = {
         return canvas
     },
 
+    // convert image to a data url
     imgToDataURL: function(img, type) {
         if (!type) type = 'image/png'
         return this.imgToCanvas(img).toDataURL(type)
     },
 
+    // get image data from a provided image
     imgData: function(img) {
         const canvas = this.imgToCanvas(img)
         const context = canvas.getContext('2d')
