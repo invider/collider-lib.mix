@@ -79,7 +79,7 @@ module.exports = {
 
         ctx.textBaseline = 'center'
         ctx.textAlign = 'center'
-        ctx.font = '24px zekton'
+        ctx.font = '24px moon'
         ctx.fillStyle = content
 
         // text status
@@ -99,7 +99,7 @@ module.exports = {
 
         ctx.textBaseline = 'center'
         ctx.textAlign = 'center'
-        ctx.font = '20px zekton'
+        ctx.font = '24px moon'
         ctx.fillStyle = content
         ctx.fillText('Powered by Collider.JAM', ctx.width/2, ctx.height - 50)
 
